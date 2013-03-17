@@ -74,6 +74,30 @@ module.exports.testCreateAndGetObject = testCase({
 });
 
 
+module.exports.testCreateAndDeleteObject = testCase({
+    test: function(test){
+        console.log('=> Sending create object request .. ');
+        api.createObject(
+        {
+            name : 'TestsObject' ,
+            images : ['./testdata/default.jpg', './testdata/default.jpg'] ,
+            meta : { message : 'Test Message'}          
+
+        },function(res){
+            console.log('=> Received create obj response verifying .. ');
+            test.equal(res.success, 1);                        
+            console.log('=> Sending delete object request .. ');
+            api.delObject(
+            {
+             obj_id : res.obj_id
+            },function(resp){
+                console.log('=> Received delete response verifying .. ');                
+                test.equal(resp.error, 0);                
+                test.done();
+            });
+        });
+    }
+});
 
 module.exports.testSimpleRequest = testCase({
     test: function(test){
