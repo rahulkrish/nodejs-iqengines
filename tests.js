@@ -48,7 +48,7 @@ module.exports.testQueryApi = testCase({
     }
 });
 
-module.exports.testCreateObject = testCase({
+module.exports.testCreateAndGetObject = testCase({
     test: function(test){
         console.log('=> Sending create object request .. ');
         api.createObject(
@@ -58,12 +58,22 @@ module.exports.testCreateObject = testCase({
             meta : { message : 'Test Message'}          
 
         },function(res){
-            console.log('=> Received response verifying .. ');
-            test.equal(res.success, 1);
-            test.done();
+            console.log('=> Received create obj response verifying .. ');
+            test.equal(res.success, 1);                        
+            console.log('=> Sending get object request .. ');
+            api.getObject(
+            {
+             obj_id : res.obj_id
+            },function(resp){
+                console.log('=> Received get response verifying .. ');
+                test.equal(resp.error, 0);                
+                test.done();
+            });
         });
     }
 });
+
+
 
 module.exports.testSimpleRequest = testCase({
     test: function(test){
