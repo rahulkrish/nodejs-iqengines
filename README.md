@@ -66,6 +66,57 @@ Retrieves the result for a given query. *callback* is a function taking a single
 
 <br>
 <br>
+### Api.createObject(options, callback) ###
+
+Creates an object in your computer vision database. *callback* is a function taking a single argument representing the response from the IQ Engines server. It is called when IQ Engines responds to the createObject request. *response* here will either contain the results of the create operation along with object ID if it has been processed or a message specifying that operation was not successful.
+
+- name - This is a *unique* name for the object you want to associate to the image
+- images - A list of paths to the images you want to have indexed
+- json - If true, then the response sent to the callback is formatted as a JSON object (default = true)
+
+**Optional:**
+
+- meta - A JSON object holding extra meta information about the uploaded images
+- collection - A name for the collection you want to upload to
+- custom_id - An id you can assign to this object that you can later use to look up the object
+
+
+<br>
+<br>
+### Api.updateObject(options, callback) ###
+
+Use this api to add images to existing objects. *callback* is a function taking a single argument representing the response from the IQ Engines server. It is called when IQ Engines responds to the updateObject request. *response* here will contain the results of the operation with an error flag set if any errors were encountered.
+
+- obj_id - The object id that you want to add additional images to
+- images - A list of paths to the images you want to have indexed
+- json - If true, then the response sent to the callback is formatted as a JSON object (default = true)
+
+
+
+<br>
+<br>
+### Api.getObject(options, callback) ###
+
+Use this api retrieve an object using it's obj_id. *callback* is a function taking a single argument representing the response from the IQ Engines server. It is called when IQ Engines responds to the updateObject request. *response* here will either contain the details of the object or a message specifying that operation was not successful.
+
+- obj_id - The object id of the object you want to retrieve
+- json - If true, then the response sent to the callback is formatted as a JSON object (default = true)
+
+
+
+<br>
+<br>
+### Api.delObject(options, callback) ###
+
+Deletes an object. *callback* is a function taking a single argument representing the response from the IQ Engines server. It is called when IQ Engines responds to the updateObject request.  *response* here will contain the results of the operation with an error flag set if any errors were encountered.
+
+- obj_id - The object id of the object you want to delete
+- json - If true, then the response sent to the callback is formatted as a JSON object (default = true)
+
+
+
+<br>
+<br>
 ### Api.waitResults(options, callback) ###
 
 Opens a long polling connection to the IQ Engines servers and waits until results are ready. *callback* is a function taking a single argument representing the response from the IQ Engines server. It is called when results are ready. 
